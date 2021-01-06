@@ -108,7 +108,6 @@ export default {
       api.includePostAttributes("user_badges");
       api.decorateWidget(`poster-name:${location}`, (decorator) => {
         const username = decorator.attrs.username;
-        console.log(decorator.attrs);
         let badges = loadUserBadges(
           username,
           displayedBadges,

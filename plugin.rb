@@ -14,7 +14,19 @@ after_initialize do
   register_editable_user_custom_field(:featured_badges)
   
   add_to_serializer(:user, :custom_fields) { object.custom_fields }
-  add_to_serializer(:user, :badges) { object.badges }
+  add_to_serializer(:user, :badges) do
+    badges = []
+    
+    object.badges.each do |b|
+      b.icon.gsub! "fa-", ""
+      badges.push(b)
+    end
+    
+    ActiveModel::ArraySerializer.new(
+      badges,
+      each_serializer: BadgeSerializer
+    ).as_json
+  end
   
   add_to_serializer(:post, :user_badges) do
     ActiveModel::ArraySerializer.new(object&.user&.featured_badges, each_serializer: BadgeSerializer).as_json

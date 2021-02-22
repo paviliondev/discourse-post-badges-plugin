@@ -39,21 +39,22 @@ function buildBadge(badge) {
   span.classList.add(TRUST_LEVEL_BADGE[badge.id - 1]);
   span.setAttribute("title", badge.title);
   span.appendChild(iconBody);
+  
   return span;
 }
 
-function loadUserBadges(username, displayedBadges, badges) {
+function loadUserBadges(username, badges) {
   let badgePage = "";
 
   const isUserBadgePage =
     helperContext().siteSettings.post_badges_badge_link_destination ===
     USER_BADGE_PAGE;
+  
   if (isUserBadgePage) {
     badgePage = `?username=${username}`;
   }
 
   return makeArray(badges)
-    .filter((badge) => displayedBadges.includes(badge.name.toLowerCase()))
     .map((badge) => {
       return {
         icon: badge.icon.replace("fa-", ""),
@@ -73,9 +74,12 @@ function appendBadges(badges, decorator) {
 
   let trustLevel = "";
   let highestBadge = 0;
+  
   const badgesNodes = [];
+  
   badges.forEach((badge) => {
     badgesNodes.push(buildBadge(badge));
+    
     if (badge.badgeGroup === 4 && badge.id > highestBadge) {
       highestBadge = badge.id;
       trustLevel = `${TRUST_LEVEL_BADGE[highestBadge - 1]}-highest`;
@@ -84,11 +88,15 @@ function appendBadges(badges, decorator) {
 
   schedule("afterRender", () => {
     const postContainer = document.querySelector(selector);
+    
     if (postContainer) {
       postContainer.innerHTML = "";
+      
       trustLevel && postContainer.classList.add(trustLevel);
+      
       helperContext().siteSettings.post_badges_only_show_highest_trust_level &&
         postContainer.classList.add("show-highest");
+      
       badgesNodes.forEach((badgeNode) => postContainer.appendChild(badgeNode));
     }
   });
@@ -101,16 +109,13 @@ export default {
     withPluginApi("0.8.25", (api) => {
       const isMobileView = Discourse.Site.currentProp("mobileView");
       const location = isMobileView ? "before" : "after";
-      const displayedBadges = helperContext()
-        .siteSettings.post_badges_badges.split("|")
-        .filter(Boolean)
-        .map((badge) => badge.toLowerCase());
+      
       api.includePostAttributes("user_badges");
+      
       api.decorateWidget(`poster-name:${location}`, (decorator) => {
         const username = decorator.attrs.username;
         let badges = loadUserBadges(
           username,
-          displayedBadges,
           decorator.attrs.user_badges
         );
         appendBadges(badges, decorator);

@@ -1,0 +1,14 @@
+<div class="control-group pref-website">
+  <label class="control-label">{{i18n "user.featured_badges.label"}}</label>
+  <div class="controls">
+    {{multi-select
+      content=model.badges
+      value=featuredBadges
+      none="user.featured_badges.none"
+      maximum=3
+      onChange=(action (mut featuredBadges))}}
+  </div>
+  <div class="instructions">
+    {{i18n "user.featured_badges.description"}}
+  </div>
+</div>

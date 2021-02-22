@@ -9,8 +9,28 @@
 
 enabled_site_setting :post_badges_plugin_enabled
 register_asset 'stylesheets/common.scss'
+
 after_initialize do
+  register_editable_user_custom_field(:featured_badges)
+  
+  add_to_serializer(:user, :custom_fields) { object.custom_fields }
+  add_to_serializer(:user, :badges) { object.badges }
+  
   add_to_serializer(:post, :user_badges) do
-    ActiveModel::ArraySerializer.new(object&.user&.badges, each_serializer: BadgeSerializer).as_json
+    ActiveModel::ArraySerializer.new(object&.user&.featured_badges, each_serializer: BadgeSerializer).as_json
+  end
+  
+  add_to_serializer(:post, :include_user_badges?) do
+    object&.user&.featured_badges.present?
+  end
+  
+  add_to_class(:user, :featured_badges) do
+    if custom_fields['featured_badges'] != nil && (
+        featured_badges = custom_fields['featured_badges'].split(',').map(&:to_i)
+      ).present?
+      badges.select { |b| featured_badges.include?(b.id) }
+    else
+      []
+    end
   end
 end

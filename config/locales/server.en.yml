@@ -1,11 +1,6 @@
 en:
   site_settings:
     post_badges_plugin_enabled: "Enable the Post Badges plugin"
-    post_badges_badges: >
-      Use the name of the badge as it appears on the
-      <a href="/admin/badges">list of badges</a>.
-      Post badges will appear in the order they are
-      added to this setting.
     post_badges_badge_link_destination: "Where a user will be taken when they click on a post badge."
     post_badges_only_show_highest_trust_level: >
       When including trust level badges (Basic, Member, Regular, Leader),

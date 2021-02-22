@@ -1,0 +1,7 @@
+en:
+  js:
+    user:
+      featured_badges:
+        label: "Featured Badges"
+        description: "Select up to 3 badges to feature on your posts"
+        none: "Select badges..." 

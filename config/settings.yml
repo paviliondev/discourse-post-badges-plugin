@@ -2,10 +2,6 @@ plugins:
   post_badges_plugin_enabled:
     default: true
     client: true
-  post_badges_badges:
-    type: list
-    default: ""
-    client: true
   post_badges_badge_link_destination:
     type: enum
     default: "user's badge page"

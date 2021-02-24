@@ -63,7 +63,7 @@ function loadUserBadges(username, badges) {
         name: badge.slug,
         id: badge.id,
         badgeGroup: badge.badge_grouping_id,
-        title: badge.description,
+        title: badge.description.replace(/<\/?[^>]+(>|$)/g, ""),
         url: `/badges/${badge.id}/${badge.slug}${badgePage}`,
       };
     });

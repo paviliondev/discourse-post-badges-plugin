@@ -4,7 +4,7 @@
 # about: A plugin built based on the Official Discourse Post Badges Theme Component
 # version: 0.1
 # author: Faizaan Gagan
-# url: https://github.com/discourse/discourse-calendar
+# url: https://github.com/paviliondev/discourse-post-badges-plugin
 # based on: https://github.com/discourse/discourse-post-badges
 
 enabled_site_setting :post_badges_plugin_enabled

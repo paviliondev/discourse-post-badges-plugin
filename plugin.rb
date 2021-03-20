@@ -40,7 +40,7 @@ after_initialize do
     if custom_fields['featured_badges'] != nil && (
         featured_badges = custom_fields['featured_badges'].split(',').map(&:to_i)
       ).present?
-      badges.select { |b| featured_badges.include?(b.id) }
+      badges.select { |b| featured_badges.include?(b.id) }.uniq
     else
       []
     end

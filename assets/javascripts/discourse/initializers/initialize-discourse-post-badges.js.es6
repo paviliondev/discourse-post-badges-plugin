@@ -18,9 +18,9 @@ const USER_BADGE_PAGE = "user's badge page";
 function buildBadge(badge) {
   let iconBody;
 
-  if (badge.image) {
+  if (badge.imageUrl) {
     const img = document.createElement("img");
-    img.setAttribute("src", badge.image);
+    img.setAttribute("src", badge.imageUrl);
     iconBody = img.outerHTML;
   } else if (badge.icon) {
     iconBody = iconHTML(badge.icon);
@@ -58,7 +58,7 @@ function loadUserBadges(username, badges) {
     .map((badge) => {
       return {
         icon: badge.icon.replace("fa-", ""),
-        image: badge.image,
+        imageUrl: badge.image_url,
         className: BADGE_CLASS[badge.badge_type_id - 1],
         name: badge.slug,
         id: badge.id,

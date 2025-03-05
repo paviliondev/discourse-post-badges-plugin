@@ -4,6 +4,7 @@ import { iconHTML } from "discourse-common/lib/icon-library";
 import { schedule } from "@ember/runloop";
 import { makeArray } from "discourse-common/lib/helpers";
 import { helperContext } from "discourse-common/lib/helpers";
+import Site from "discourse/models/site";
 
 const BADGE_CLASS = [
   "badge-type-gold",
@@ -107,7 +108,7 @@ export default {
 
   initialize() {
     withPluginApi("0.8.25", (api) => {
-      const isMobileView = Discourse.Site.currentProp("mobileView");
+      const isMobileView = Site.current().mobileView;
       const location = isMobileView ? "before" : "after";
       
       api.includePostAttributes("user_badges");

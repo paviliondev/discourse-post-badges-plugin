@@ -67,7 +67,8 @@ function loadUserBadges(username, badges) {
         title: badge.description.replace(/<\/?[^>]+(>|$)/g, ""),
         url: `/badges/${badge.id}/${badge.slug}${badgePage}`,
       };
-    });
+    })
+    .slice(0, 3);
 }
 
 function appendBadges(badges, decorator) {

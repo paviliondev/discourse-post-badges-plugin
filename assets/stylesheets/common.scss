@@ -1,9 +1,8 @@
-@import "common/foundation/variables";
-
 @keyframes fadeIn {
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
@@ -27,13 +26,15 @@
       margin: 0 8px 0 0;
 
       &.badge-type-bronze .fa {
-        color: $bronze;
+        color: var(--bronze);
       }
+
       &.badge-type-silver .fa {
-        color: $silver;
+        color: var(--silver);
       }
+
       &.badge-type-gold .fa {
-        color: $gold;
+        color: var(--gold);
       }
 
       img {

@@ -11,7 +11,7 @@ export default class UserFeaturedBadges extends Component {
 
   @tracked
   featuredBadges = this.args.outletArgs.model.custom_fields.featured_badges
-    .split(",")
+    ?.split(",")
     .map(Number);
 
   @action

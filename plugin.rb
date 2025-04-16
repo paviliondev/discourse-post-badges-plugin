@@ -31,11 +31,15 @@ after_initialize do
     ActiveModel::ArraySerializer.new(badges, each_serializer: BadgeSerializer).as_json
   end
 
-  add_to_serializer(:post, :user_badges, include_condition: -> { object&.user&.featured_badges.present? }) do
+  add_to_serializer(
+    :post,
+    :user_badges,
+    include_condition: -> { object&.user&.featured_badges.present? },
+  ) do
     ActiveModel::ArraySerializer.new(
       object&.user&.featured_badges,
       each_serializer: BadgeSerializer,
-      ).as_json
+    ).as_json
   end
 
   add_to_class(:user, :featured_badges) do
